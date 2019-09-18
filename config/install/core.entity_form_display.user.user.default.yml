@@ -1,0 +1,79 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.user.user.field_ws_user_cadet_name
+    - field.field.user.user.field_ws_user_carrier
+    - field.field.user.user.field_ws_user_cell
+    - field.field.user.user.field_ws_user_first_name
+    - field.field.user.user.field_ws_user_last_name
+    - field.field.user.user.field_ws_user_method
+    - field.field.user.user.field_ws_user_type
+    - field.field.user.user.user_picture
+  module:
+    - user
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  account:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_ws_user_cadet_name:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_ws_user_carrier:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_ws_user_cell:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_ws_user_first_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_ws_user_last_name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_ws_user_method:
+    type: options_buttons
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_ws_user_type:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  contact: true
+  language: true
+  timezone: true
+  user_picture: true

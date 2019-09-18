@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.field_cc_user_carrier
+field_name: field_cc_user_carrier
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: txt.bell.ca
+      label: Bell
+    -
+      value: text.mtsmobility.com
+      label: Bell MTS
+    -
+      value: pcs.rogers.com
+      label: Chatr
+    -
+      value: txt.eastlink.ca
+      label: Eastlink
+    -
+      value: mms.fido.ca
+      label: Fido
+    -
+      value: txt.freedommobile.ca
+      label: Freedom
+    -
+      value: msg.telus.com
+      label: Koodo
+    -
+      value: mobiletxt.ca
+      label: PC Mobile
+    -
+      value: msg.telus.com
+      label: Public Mobile
+    -
+      value: pcs.rogers.com
+      label: Rogers
+    -
+      value: sms.sasktel.com
+      label: Sasktel
+    -
+      value: pcs.rogers.com
+      label: TBayTel
+    -
+      value: msg.telus.com
+      label: Telus
+    -
+      value: vmobile.ca
+      label: Virgin Mobile
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

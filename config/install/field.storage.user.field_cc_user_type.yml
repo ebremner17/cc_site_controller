@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.field_cc_user_type
+field_name: field_cc_user_type
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: ws_role_cadet
+      label: Cadet
+    -
+      value: ws_role_officer
+      label: Officer
+    -
+      value: ws_role_parent
+      label: Parent
+    -
+      value: ws_role_league_member
+      label: 'League Member'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

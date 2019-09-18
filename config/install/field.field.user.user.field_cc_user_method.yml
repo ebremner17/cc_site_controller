@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_cc_user_method
+  module:
+    - options
+    - user
+id: user.user.field_cc_user_method
+field_name: field_cc_user_method
+entity_type: user
+bundle: user
+label: 'Preferred method of communication'
+description: 'Please select your preferred method of communication.  All communication from the corps/website will be sent through this method.  For text you must be with one of the big 5 carriers in Canada, if not, email will be the only communication.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_cc_user_carrier
+  module:
+    - options
+    - user
+id: user.user.field_cc_user_carrier
+field_name: field_cc_user_carrier
+entity_type: user
+bundle: user
+label: 'Cell phone carrier'
+description: 'Please choose your cell phone carrier.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

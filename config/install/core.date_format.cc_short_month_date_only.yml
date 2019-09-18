@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ws_short_month_date_only
+label: 'Short month date only'
+locked: false
+pattern: 'M d, Y'

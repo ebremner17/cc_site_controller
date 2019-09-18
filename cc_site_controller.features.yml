@@ -1,0 +1,6 @@
+excluded:
+  - mailsystem.settings
+  - user_registrationpassword.mail
+  - user_registrationpassword.mail_original
+  - user_registrationpassword.settings
+required: true
