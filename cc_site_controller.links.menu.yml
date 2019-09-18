@@ -1,0 +1,6 @@
+cc_site_controller.site_settings_form:
+  title: 'Site settings configuration'
+  route_name: cc_site_controller.site_settings_form
+  description: 'Site settings'
+  parent: system.admin_config_system
+  weight: 99

@@ -11,7 +11,11 @@ use Drupal\Core\Entity\EntityInterface;
  * Add styling class for type of website.
  */
 function cc_site_controller_preprocess_html(&$variables) {
-  $variables['attributes']['class'][] = 'warspite';
+
+  $config = \Drupal::config('cc_site_controller.sitesettings');
+
+  $variables['attributes']['class'][] = 'cadets-canada';
+  $variables['attributes']['class'][] = $config->get('type_of_site');
 }
 
 /**
