@@ -5,65 +5,77 @@ use Drupal\Core\State\StateInterface;
 use Drupal\message\Entity\Message;
 use Drupal\Core\Entity\EntityInterface;
 
-function ws_site_controller_preprocess_html(&$variables) {
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Add styling class for type of website.
+ */
+function cc_site_controller_preprocess_html(&$variables) {
   $variables['attributes']['class'][] = 'warspite';
 }
 
-function ws_site_controller_form_user_register_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add states, validation and submit to user registration form.
+ */
+function cc_site_controller_form_user_register_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
 
   // Add the visible states for the cell phone carrier.
-  $form['field_ws_user_carrier']['#states'] = [
+  $form['field_cc_user_carrier']['#states'] = [
     'visible' => [
       [
-        [':input[name="field_ws_user_method"]' => ['value' => 'text']],
+        [':input[name="field_cc_user_method"]' => ['value' => 'text']],
       ],
     ],
   ];
 
   // Add the visible states for the cell phone number.
-  $form['field_ws_user_cell']['#states'] = [
+  $form['field_cc_user_cell']['#states'] = [
     'visible' => [
       [
-        [':input[name="field_ws_user_method"]' => ['value' => 'text']],
+        [':input[name="field_cc_user_method"]' => ['value' => 'text']],
       ],
     ],
   ];
 
   // Add the visible states for the cadet name.
-  $form['field_ws_user_cadet_name']['#states'] = [
+  $form['field_cc_user_cadet_name']['#states'] = [
     'visible' => [
       [
-        [':input[name="field_ws_user_type"]' => ['value' => 'ws_role_parent']],
+        [':input[name="field_cc_user_type"]' => ['value' => 'ws_role_parent']],
       ],
     ],
   ];
 
   // Add form validation.
-  $form['#validate'][] = '_ws_site_controller_user_register_validate';
+  $form['#validate'][] = '_cc_site_controller_user_register_validate';
 
   // Add form submit handler.
-  $form['actions']['submit']['#submit'][]  = '_ws_site_controller_user_registration_submit';
+  $form['actions']['submit']['#submit'][]  = '_cc_site_controller_user_registration_submit';
 }
 
 /**
+ * Helper function.
+ *
  * Validates submission values in the FORM_ID() form.
  */
-function _ws_site_controller_user_register_validate(array &$form, FormStateInterface $form_state) {
+function _cc_site_controller_user_register_validate(array &$form, FormStateInterface $form_state) {
 
   // Get the method of communication from the form.
-  $method = $form_state->getValue('field_ws_user_method')[0]['value'];
+  $method = $form_state->getValue('field_cc_user_method')[0]['value'];
 
   // If the menthod is text, check cell phone and carrier.
   if ($method == 'text') {
 
     // Get the cell from the form.
-    $cell = $form_state->getValue('field_ws_user_cell')[0]['value'];
+    $cell = $form_state->getValue('field_cc_user_cell')[0]['value'];
 
     // If the cell is not entered, show an error message.
     if ($cell == NULL) {
 
       // Error message for cell not entered.
-      $form_state->setErrorByName('field_ws_user_cell', t('You must enter a cell phone number.'));
+      $form_state->setErrorByName('field_cc_user_cell', t('You must enter a cell phone number.'));
     }
     else {
 
@@ -71,18 +83,18 @@ function _ws_site_controller_user_register_validate(array &$form, FormStateInter
       if(!preg_match('/^\d{10}$/', $cell)) {
 
         // Error message for improper cell format.
-        $form_state->setErrorByName('field_ws_user_cell', t('Cell phone number must be 10 digits and must have only digits (i.e. 5556745634).'));
+        $form_state->setErrorByName('field_cc_user_cell', t('Cell phone number must be 10 digits and must have only digits (i.e. 5556745634).'));
       }
     }
 
     // Get the cell phone carrier from the form.
-    $carrier = $form_state->getValue('field_ws_user_carrier');
+    $carrier = $form_state->getValue('field_cc_user_carrier');
 
     // If there is nothing set for the carrier, show an error.
     if (!isset($carrier[0]['value'])) {
 
       // Error message for cell phone carrier.
-      $form_state->setErrorByName('field_ws_user_carrier', t('You must select a cell phone carrier.'));
+      $form_state->setErrorByName('field_cc_user_carrier', t('You must select a cell phone carrier.'));
     }
     else {
 
@@ -92,33 +104,35 @@ function _ws_site_controller_user_register_validate(array &$form, FormStateInter
   }
 
   // Get the type of account from the form.
-  $type = $form_state->getValue('field_ws_user_type');
+  $type = $form_state->getValue('field_cc_user_type');
 
   // If the type of account is set and is a parent, check the cadet name.
   if (isset($type[0]['value']) && $type[0]['value'] == 'ws_role_parent') {
 
     // Get the cadet name from the form.
-    $cadet_name = $form_state->getValue('field_ws_user_cadet_name');
+    $cadet_name = $form_state->getValue('field_cc_user_cadet_name');
 
     // If the cadet name is not entered, show an error message.
     if ($cadet_name[0]['value'] == NULL) {
 
       // Error message for the cadet name not entered.
-      $form_state->setErrorByName('field_ws_user_cadet_name', t('You must enter your cadets name.'));
+      $form_state->setErrorByName('field_cc_user_cadet_name', t('You must enter your cadets name.'));
     }
   }
 }
 
 /**
- * {@inheritdoc}
+ * Helper function.
+ *
+ * Handles submission of user registration.
  */
-function _ws_site_controller_user_registration_submit(array &$form, FormStateInterface $form_state) {
+function _cc_site_controller_user_registration_submit(array &$form, FormStateInterface $form_state) {
 
   // Username of newly created user.
   $params['username'] = $form_state->getValue('name');
 
   // Send the e-mail to the admin only, do not used send_emails function.
-  $mail_sent = \Drupal::service('plugin.manager.mail')->mail('ws_site_controller', 'user_created', 'eric_bremner@bell.net', 'en', $params, NULL, TRUE);
+  $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', 'user_created', 'eric_bremner@bell.net', 'en', $params, NULL, TRUE);
 }
 
 /**
@@ -126,7 +140,7 @@ function _ws_site_controller_user_registration_submit(array &$form, FormStateInt
  *
  * This function completes the email, allowing for placeholder substitution.
  */
-function ws_site_controller_mail($key, &$message, $params = NULL) {
+function cc_site_controller_mail($key, &$message, $params = NULL) {
 
   $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
   $message['from'] = 'website@warspiteseacadets.com';
@@ -163,10 +177,10 @@ function ws_site_controller_mail($key, &$message, $params = NULL) {
  * @param $key
  * @param $params
  */
-function _ws_site_controller_send_emails($key, $params = NULL) {
+function _cc_site_controller_send_emails($key, $params = NULL) {
 
   // Get the emails from the users.
-  $emails = _ws_site_controller_get_emails();
+  $emails = _cc_site_controller_get_emails();
 
   // If there are emails, process them.
   if (isset($emails) and count($emails) > 0) {
@@ -174,7 +188,7 @@ function _ws_site_controller_send_emails($key, $params = NULL) {
     $to_str = implode(",", $emails);
 
     // Send the e-mail to the asker. Drupal calls hook_mail() via this.
-    $mail_sent = \Drupal::service('plugin.manager.mail')->mail('ws_site_controller', $key, $to_str, 'en', $params, NULL, TRUE);
+    $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', $key, $to_str, 'en', $params, NULL, TRUE);
   }
 }
 
@@ -185,7 +199,7 @@ function _ws_site_controller_send_emails($key, $params = NULL) {
  *
  * @return array
  */
-function _ws_site_controller_get_emails() {
+function _cc_site_controller_get_emails() {
 
   // Load in all the users.
   $users = user_load_multiple();
@@ -203,7 +217,7 @@ function _ws_site_controller_get_emails() {
     if ($user->isActive()) {
 
       // Get the method of communication from the user.
-      $method = $user->field_ws_user_method->getValue();
+      $method = $user->field_cc_user_method->getValue();
 
       // If the method is set, process it.
       if (isset($method[0]['value'])) {
@@ -217,7 +231,7 @@ function _ws_site_controller_get_emails() {
         else {
 
           // Set the text info which is the cell phone number @ carrier.
-          $emails[] = $user->field_ws_user_cell->getValue()[0]['value'] . '@' . $user->field_ws_user_carrier->getValue()[0]['value'];
+          $emails[] = $user->field_cc_user_cell->getValue()[0]['value'] . '@' . $user->field_cc_user_carrier->getValue()[0]['value'];
         }
       }
     }
