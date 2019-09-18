@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.user.user.field_ws_user_cadet_name
-    - field.field.user.user.field_ws_user_carrier
-    - field.field.user.user.field_ws_user_cell
-    - field.field.user.user.field_ws_user_first_name
-    - field.field.user.user.field_ws_user_last_name
-    - field.field.user.user.field_ws_user_method
-    - field.field.user.user.field_ws_user_type
+    - field.field.user.user.field_cc_user_cadet_name
+    - field.field.user.user.field_cc_user_carrier
+    - field.field.user.user.field_cc_user_cell
+    - field.field.user.user.field_cc_user_first_name
+    - field.field.user.user.field_cc_user_last_name
+    - field.field.user.user.field_cc_user_method
+    - field.field.user.user.field_cc_user_type
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -20,7 +20,7 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
-  field_ws_user_cadet_name:
+  field_cc_user_cadet_name:
     weight: 7
     label: above
     settings:
@@ -28,7 +28,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_ws_user_type:
+  field_cc_user_type:
     weight: 6
     label: above
     settings: {  }
@@ -48,8 +48,8 @@ content:
     third_party_settings: {  }
     label: hidden
 hidden:
-  field_ws_user_carrier: true
-  field_ws_user_cell: true
-  field_ws_user_first_name: true
-  field_ws_user_last_name: true
-  field_ws_user_method: true
+  field_cc_user_carrier: true
+  field_cc_user_cell: true
+  field_cc_user_first_name: true
+  field_cc_user_last_name: true
+  field_cc_user_method: true
