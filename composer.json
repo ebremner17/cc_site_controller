@@ -1,0 +1,7 @@
+{
+  "name": "ebremner17/cc_site_controller",
+  "description": "Site controller for Cadets Canada.",
+  "type": "drupal-custom-module",
+  "homepage": "https://github.com/ebremner17/cc_site_controller",
+  "keywords": ["Drupal"]
+}
