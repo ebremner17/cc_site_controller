@@ -9,7 +9,6 @@ dependencies:
     - field.field.user.user.field_cc_user_last_name
     - field.field.user.user.field_cc_user_method
     - field.field.user.user.field_cc_user_type
-    - field.field.user.user.user_picture
   module:
     - user
 id: user.user.default
@@ -76,4 +75,3 @@ hidden:
   contact: true
   language: true
   timezone: true
-  user_picture: true
