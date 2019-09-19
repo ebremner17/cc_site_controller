@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall for Cadets Canada Site Controller.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function cc_site_controller_install() {
+  \Drupal::service('theme_installer')->install(['cadets_canada_theme']);
+  \Drupal::service('theme_handler')->setDefault('cadets_canada_theme');
+}
