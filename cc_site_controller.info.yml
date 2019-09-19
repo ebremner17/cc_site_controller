@@ -4,9 +4,12 @@ core: 8.x
 dependencies:
   - field
   - image
+  - layout_builder_modal
   - mailsystem
   - node
   - options
   - pathauto
   - user
   - user_registrationpassword
+  - web_page
+  - cc_media
