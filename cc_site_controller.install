@@ -11,4 +11,7 @@
 function cc_site_controller_install() {
   \Drupal::service('theme_installer')->install(['cadets_canada_theme']);
   \Drupal::service('theme_handler')->setDefault('cadets_canada_theme');
+
+  $config = \Drupal::service('config.factory')->getEditable('system.theme');
+  $config->set('admin', 'seven')->save();
 }
