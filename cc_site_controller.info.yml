@@ -12,4 +12,5 @@ dependencies:
   - user
   - user_registrationpassword
   - web_page
-  - cc_media
+themes:
+  - cadets_canada_theme
