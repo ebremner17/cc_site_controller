@@ -15,7 +15,7 @@ function cc_site_controller_preprocess_html(&$variables) {
   $config = \Drupal::config('cc_site_controller.sitesettings');
 
   $variables['attributes']['class'][] = 'cadets-canada';
-  $variables['attributes']['class'][] = $config->get('type_of_site');
+  $variables['attributes']['class'][] = $config->get('cadet_theme');
 }
 
 /**
