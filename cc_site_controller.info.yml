@@ -1,4 +1,4 @@
-name: 'Warspite site controller'
+name: 'Cadets Canada site controller'
 type: module
 core: 8.x
 dependencies:
@@ -10,3 +10,4 @@ dependencies:
   - pathauto
   - user
   - user_registrationpassword
+  - cc_web_page
