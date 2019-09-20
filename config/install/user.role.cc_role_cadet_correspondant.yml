@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-id: cc_role_league_member
-label: 'League member'
-weight: 5
+id: cc_role_cadet_correspondant
+label: 'Cadet correspondant'
+weight: 6
 is_admin: null
 permissions: {  }

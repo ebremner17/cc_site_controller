@@ -11,6 +11,7 @@ dependencies:
   - options
   - path
   - pathauto
+  - publishcontent
   - user
   - user_registrationpassword
   - we_megamenu
