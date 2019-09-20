@@ -17,6 +17,7 @@ dependencies:
   - pathauto
   - publishcontent
   - smtp
+  - twig_field_value
   - user
   - user_registrationpassword
   - we_megamenu
