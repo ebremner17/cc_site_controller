@@ -89,6 +89,29 @@ class SiteSettingsForm extends ConfigFormBase {
       '#description' => t('Enter the corps email address.  (i.e. cadets@unit.com)'),
     ];
 
+    $form['notification_info'] = [
+      '#title' => t('Notification Info'),
+      '#type' => 'fieldset',
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    ];
+
+    $form['notification_info']['notification_email_address'] = [
+      '#title' => t('Email Address'),
+      '#type' => 'email',
+      '#default_value' => $config->get('notification_email_address'),
+      '#description' => t('Enter the email address address that the notifications are going to come form.  (i.e. notifications@unit.com)'),
+      '#required' => TRUE,
+    ];
+
+    $form['notification_info']['notification_name'] = [
+      '#title' => t('Name'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('notification_name'),
+      '#description' => t('Enter the name you want displayed when notifications are sent.  (i.e. RCSCC Somewhere'),
+      '#required' => TRUE,
+    ];
+
     $form['parade_night_info'] = [
       '#title' => t('Parade Night Info'),
       '#type' => 'fieldset',
@@ -260,6 +283,8 @@ class SiteSettingsForm extends ConfigFormBase {
       'mailing_address_city',
       'mailing_address_province',
       'mailing_address_postal_code',
+      'notification_email_address',
+      'notification_name'
     ];
 
     foreach ($values_to_process as $value_to_process) {
