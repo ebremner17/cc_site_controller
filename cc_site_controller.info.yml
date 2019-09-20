@@ -2,15 +2,19 @@ name: 'Cadets Canada site controller'
 type: module
 core: 8.x
 dependencies:
+  - cc_site_controller
   - field
   - image
   - layout_builder_modal
   - mailsystem
   - node
   - options
+  - path
   - pathauto
   - user
   - user_registrationpassword
+  - we_megamenu
   - web_page
 themes:
   - cadets_canada_theme
+core_incompatible: false

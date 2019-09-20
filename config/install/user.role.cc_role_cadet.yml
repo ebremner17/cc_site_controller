@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: cc_role_cadet
+label: Cadet
+weight: 3
+is_admin: null

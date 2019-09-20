@@ -3,4 +3,6 @@ excluded:
   - user_registrationpassword.mail
   - user_registrationpassword.mail_original
   - user_registrationpassword.settings
+  - cc_site_controller.sitesettings
+  - image.style.thumbnail
 required: true

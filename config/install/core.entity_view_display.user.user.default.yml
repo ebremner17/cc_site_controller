@@ -9,9 +9,7 @@ dependencies:
     - field.field.user.user.field_cc_user_last_name
     - field.field.user.user.field_cc_user_method
     - field.field.user.user.field_cc_user_type
-    - image.style.thumbnail
   module:
-    - image
     - options
     - user
 id: user.user.default

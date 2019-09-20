@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: cc_role_league_member
+label: 'League member'
+weight: 5
+is_admin: null

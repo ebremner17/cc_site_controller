@@ -15,10 +15,10 @@ settings:
       label: Bell
     -
       value: text.mtsmobility.com
-      label: Bell MTS
+      label: 'Bell MTS'
     -
       value: pcs.rogers.com
-      label: Chatr
+      label: TBayTel
     -
       value: txt.eastlink.ca
       label: Eastlink
@@ -30,28 +30,16 @@ settings:
       label: Freedom
     -
       value: msg.telus.com
-      label: Koodo
+      label: Telus
     -
       value: mobiletxt.ca
-      label: PC Mobile
-    -
-      value: msg.telus.com
-      label: Public Mobile
-    -
-      value: pcs.rogers.com
-      label: Rogers
+      label: 'PC Mobile'
     -
       value: sms.sasktel.com
       label: Sasktel
     -
-      value: pcs.rogers.com
-      label: TBayTel
-    -
-      value: msg.telus.com
-      label: Telus
-    -
       value: vmobile.ca
-      label: Virgin Mobile
+      label: 'Virgin Mobile'
   allowed_values_function: ''
 module: options
 locked: false
