@@ -146,26 +146,63 @@ function _cc_site_controller_user_registration_submit(array &$form, FormStateInt
  */
 function cc_site_controller_mail($key, &$message, $params = NULL) {
 
+  $config = \Drupal::config('cc_site_controller.sitesettings');
+
   $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
   $message['from'] = 'website@warspiteseacadets.com';
 
   switch ($key) {
+
     case 'user_created':
-      $message['body'][] = 'A new user has applied at RCSSC Warspite: ' . $params['username'];
-      $message['subject'] = 'New User Creation';
+      $body = 'A new user has applied at ';
+
+      if ($config->get('corps_number') !== NULL) {
+        if ($config->get('corps_name') !== NULL) {
+          $body .= $config->get('corps_number') . ' ' . $config->get('corps_name');
+        }
+        else {
+          $body .= $config->get('corps_number');
+        }
+      }
+      else {
+        $body .= ' your unit';
+      }
+
+      $body .= ': ' . $params['username'];
+      $message['body'][] = $body;
       break;
+
     case 'alert_created':
       $message['body'][] = $params['message'];
       $message['subject'] = $params['type_of_alert'];
       break;
+
     case 'news_created':
       $message['body'][] = 'RCSCC Warspite has a new news item available at: ' . $params['content_url'];
       $message['subject'] = 'News';
       break;
+
     case 'announcement_created':
-      $message['body'][] = 'RCSCC Warspite has a new announcements: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'announcements';
+      $body = '';
+
+      if ($config->get('corps_number') !== NULL) {
+        if ($config->get('corps_name') !== NULL) {
+          $body .= $config->get('corps_number') . ' ' . $config->get('corps_name');
+        }
+        else {
+          $body .= $config->get('corps_number');
+        }
+      }
+      else {
+        $body .= 'Your Cadet unit';
+      }
+
+      $body .= ' has a new announcement: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'announcements';
+
+      $message['body'][] = $body;
       $message['subject'] = 'Announcement';
       break;
+
     case 'ros_created':
       $message['body'][] = 'RCSCC Warspite has new routine orders: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'ros';
       $message['subject'] = 'Routine Orders';
