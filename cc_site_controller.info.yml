@@ -2,6 +2,7 @@ name: 'Cadets Canada site controller'
 type: module
 core: 8.x
 dependencies:
+  - cacheflush
   - cc_site_controller
   - ckeditor
   - editor
@@ -15,6 +16,7 @@ dependencies:
   - path
   - pathauto
   - publishcontent
+  - smtp
   - user
   - user_registrationpassword
   - we_megamenu
