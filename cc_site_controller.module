@@ -152,9 +152,15 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
 
   if ($config->get('notification_email_address') !== NULL) {
     if ($config->get('notification_name') !== NULL) {
+      $message['headers']['Sender'] = $config->get('notification_name') . ' <' . $config->get('notification_email_address') . '>';
+      $message['headers']['Return-Path']  = $config->get('notification_email_address');
+      $message['headers']['From'] = $config->get('notification_name') . ' <' . $config->get('notification_email_address') . '>';
       $message['from'] = $config->get('notification_name') . ' <' . $config->get('notification_email_address') . '>';
     }
     else {
+      $message['headers']['Sender'] = $config->get('notification_email_address');
+      $message['headers']['Return-Path'] = $config->get('notification_email_address');
+      $message['headers']['From'] = $config->get('notification_email_address');
       $message['from'] = $config->get('notification_email_address');
     }
   }
@@ -163,6 +169,9 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
     // Load in user 1 and send from that email;
     $user = \Drupal\user\Entity\User::load(1);
 
+    $message['headers']['Sender'] = $user->getEmail();
+    $message['headers']['Return-Path'] = $user->getEmail();
+    $message['headers']['From'] = $user->getEmail();
     $message['from'] = $user->getEmail();
   }
 
@@ -241,10 +250,11 @@ function _cc_site_controller_send_emails($key, $params = NULL) {
   // If there are emails, process them.
   if (isset($emails) and count($emails) > 0) {
 
-    $to_str = implode(",", $emails);
+    foreach ($emails as $email) {
 
-    // Send the e-mail to the asker. Drupal calls hook_mail() via this.
-    $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', $key, $to_str, 'en', $params, NULL, TRUE);
+      // Send the e-mail to the asker. Drupal calls hook_mail() via this.
+      $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', $key, $email, 'en', $params, NULL, TRUE);
+    }
   }
 }
 
@@ -304,5 +314,4 @@ function cc_site_controller_page_attachments(array &$attachments) {
   if ($theme == 'seven') {
     $attachments['#attached']['library'][] = 'cc_site_controller/extra_admin';
   }
-  //dpm('HERE');
 }
