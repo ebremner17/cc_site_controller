@@ -16,6 +16,7 @@ function cc_site_controller_preprocess_html(&$variables) {
 
   $variables['attributes']['class'][] = 'cadets-canada';
   $variables['attributes']['class'][] = $config->get('cadet_theme') !==  NULL ? $config->get('cadet_theme') : 'generic';
+
 }
 
 /**
@@ -175,6 +176,18 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
     $message['from'] = $user->getEmail();
   }
 
+  if ($config->get('corps_number') !== NULL) {
+    if ($config->get('corps_name') !== NULL) {
+      $corps_name = $config->get('corps_number') . ' ' . $config->get('corps_name');
+    }
+    else {
+      $corps_name = $config->get('corps_number');
+    }
+  }
+  else {
+    $corps_name = 'Your Cadet unit';
+  }
+
   switch ($key) {
 
     case 'user_created':
@@ -202,28 +215,13 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
       break;
 
     case 'news_created':
-      $message['body'][] = 'RCSCC Warspite has a new news item available at: ' . $params['content_url'];
+      $message['body'][] = $corps_name . ' has a new news item available at: ' . $params['content_url'];
       $message['subject'] = 'News';
       break;
 
     case 'announcement_created':
-      $body = '';
 
-      if ($config->get('corps_number') !== NULL) {
-        if ($config->get('corps_name') !== NULL) {
-          $body .= $config->get('corps_number') . ' ' . $config->get('corps_name');
-        }
-        else {
-          $body .= $config->get('corps_number');
-        }
-      }
-      else {
-        $body .= 'Your Cadet unit';
-      }
-
-      $body .= ' has a new announcement: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'announcements';
-
-      $message['body'][] = $body;
+      $message['body'][] = $corps_name . ' has a new announcement: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'announcements';
       $message['subject'] = 'Announcement';
       break;
 
