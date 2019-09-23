@@ -21,4 +21,12 @@ function cc_site_controller_install() {
     'menu_name' => 'admin',
   ]);
   $item->save();
+
+  $role_object = Role::load('authenticated');
+  $role_object->grantPermission('View any Embeddable content entities');
+  $role_object->save();
+
+  $role_object = Role::load('anonymous');
+  $role_object->grantPermission('View any Embeddable content entities');
+  $role_object->save();
 }
