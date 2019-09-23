@@ -18,7 +18,7 @@ function cc_site_controller_install() {
   $config->set('admin', 'seven')->save();
 
   $role_object = Role::load('authenticated');
-  $role_object->grantPermission('View any Embeddable content entities');
+  $role_object->grantPermission('view any et_embeddable_content entities');
   $role_object->grantPermission('View published content');
   $role_object->grantPermission('View media');
   $role_object->grantPermission('Use the Basic HTML text format');
@@ -26,7 +26,7 @@ function cc_site_controller_install() {
   $role_object->save();
 
   $role_object = Role::load('anonymous');
-  $role_object->grantPermission('View any Embeddable content entities');
+  $role_object->grantPermission('view any et_embeddable_content entities');
   $role_object->grantPermission('View published content');
   $role_object->grantPermission('View media');
   $role_object->grantPermission('Use the Basic HTML text format');
