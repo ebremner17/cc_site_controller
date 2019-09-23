@@ -5,6 +5,8 @@
  * Install, update and uninstall for Cadets Canada Site Controller.
  */
 
+use Drupal\user\Entity\Role;
+
 /**
  * Implements hook_install().
  */
@@ -15,18 +17,18 @@ function cc_site_controller_install() {
   $config = \Drupal::service('config.factory')->getEditable('system.theme');
   $config->set('admin', 'seven')->save();
 
-  $item = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
-    'link' => ['uri' => 'internal:/admin/config/cc_site_controller/sitesettings'],
-    'title' => 'Site settings',
-    'menu_name' => 'admin',
-  ]);
-  $item->save();
-
   $role_object = Role::load('authenticated');
   $role_object->grantPermission('View any Embeddable content entities');
+  $role_object->grantPermission('View published content');
+  $role_object->grantPermission('View media');
+  $role_object->grantPermission('Use the Basic HTML text format');
+  $role_object->grantPermission('Change own username');
   $role_object->save();
 
   $role_object = Role::load('anonymous');
   $role_object->grantPermission('View any Embeddable content entities');
+  $role_object->grantPermission('View published content');
+  $role_object->grantPermission('View media');
+  $role_object->grantPermission('Use the Basic HTML text format');
   $role_object->save();
 }
