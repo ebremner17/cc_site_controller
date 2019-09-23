@@ -6,4 +6,5 @@ label: Cadet
 weight: 3
 is_admin: null
 permissions:
+  - 'access toolbar'
   - 'use text format cc_tf_basic_html'
