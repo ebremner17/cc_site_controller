@@ -14,4 +14,11 @@ function cc_site_controller_install() {
 
   $config = \Drupal::service('config.factory')->getEditable('system.theme');
   $config->set('admin', 'seven')->save();
+
+  $item = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+    'link' => ['uri' => 'internal:/admin/config/cc_site_controller/sitesettings'],
+    'title' => 'Site settings',
+    'menu_name' => 'admin',
+  ]);
+  $item->save();
 }

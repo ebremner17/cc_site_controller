@@ -2,3 +2,8 @@ extra_admin:
   css:
     theme:
       css/extra_admin.css: {}
+cc-toolbar:
+  version: 1.0
+  css:
+    theme:
+      css/cc_toolbar.css: {}

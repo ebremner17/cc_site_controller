@@ -336,4 +336,7 @@ function cc_site_controller_page_attachments(array &$attachments) {
   if ($theme == 'seven') {
     $attachments['#attached']['library'][] = 'cc_site_controller/extra_admin';
   }
+
+  $attachments['#attached']['library'][] = 'cc_site_controller/cc-toolbar';
 }
+

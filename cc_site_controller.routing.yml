@@ -4,6 +4,6 @@ cc_site_controller.site_settings_form:
     _form: '\Drupal\cc_site_controller\Form\SiteSettingsForm'
     _title: 'Site Settings'
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'administer site settings'
   options:
     _admin_route: TRUE
