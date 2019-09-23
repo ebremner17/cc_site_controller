@@ -255,6 +255,18 @@ class SiteSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('cadet_theme') !== NULL ? $config->get('cadet_theme') : 'generic',
     ];
 
+    $form['theme_info']['crest'] = array(
+      '#type' => 'managed_file',
+      '#upload_location' => 'public://images/',
+      '#title' => $this->t('Unit crest'),
+      '#description' => t("The crest for your unit"),
+      '#default_value' => $config->get('crest') !== NULL ? $config->get('crest') : '',
+      '#upload_validators' => array(
+        'file_validate_extensions' => array('png jpg jpeg'),
+        'file_validate_size' => array(25600000),
+      ),
+    );
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -264,6 +276,29 @@ class SiteSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
     parent::submitForm($form, $form_state);
+
+    if ($form_state->getValue('crest')) {
+      /* Fetch the array of the file stored temporarily in database */
+      $image = $form_state->getValue('crest');
+
+      $this->config('cc_site_controller.sitesettings')
+        ->set('crest', $form_state->getValue('crest'))
+        ->save();
+
+      /* Load the object of the file by it's fid */
+      $file = \Drupal\file\Entity\File::load($image[0]);
+
+      /* Set the status flag permanent of the file object */
+      $file->setPermanent();
+
+      /* Save the file in database */
+      $file->save();
+    }
+    else {
+      $this->config('cc_site_controller.sitesettings')
+        ->set('crest', NULL)
+        ->save();
+    }
 
     $values_to_process = [
       'type_of_cadets',
