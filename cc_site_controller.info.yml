@@ -15,6 +15,7 @@ dependencies:
   - path
   - pathauto
   - publishcontent
+  - redirect_after_login
   - smtp
   - twig_field_value
   - user

@@ -1,0 +1,10 @@
+login_redirection:
+  anonymous: null
+  authenticated: /
+  cc_role_officer: /admin/content
+  cc_role_cadet: /
+  cc_role_parent: /
+  cc_role_league_member: /
+  cc_role_cadet_correspondant: /admin/content
+  cc_role_site_manager: /admin/content
+exclude_urls: ''
