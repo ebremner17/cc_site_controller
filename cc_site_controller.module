@@ -151,6 +151,19 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
 
   $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
 
+  if ($config->get('type_of_cadets') !== NULL) {
+    switch($config->get('type_of_cadets')) {
+      case 'sea':
+        $corps_designator = 'RCSCC';
+        break;
+      case 'air':
+        $corps_designator = 'RCACS';
+        break;
+      case 'army':
+        $corps_designator = 'RCACC';
+    }
+  }
+
   if ($config->get('notification_email_address') !== NULL) {
     if ($config->get('notification_name') !== NULL) {
       $message['headers']['Sender'] = $config->get('notification_name') . ' <' . $config->get('notification_email_address') . '>';
@@ -178,10 +191,21 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
 
   if ($config->get('corps_number') !== NULL) {
     if ($config->get('corps_name') !== NULL) {
-      $corps_name = $config->get('corps_number') . ' ' . $config->get('corps_name');
+      if (isset($corps_designator)) {
+
+        $corps_name = $config->get('corps_number') . ' ' . $corps_designator . ' ' . $config->get('corps_name');
+      }
+      else {
+        $corps_name = $config->get('corps_number') . ' ' . $config->get('corps_name');
+      }
     }
     else {
-      $corps_name = $config->get('corps_number');
+      if (isset($corps_designator)) {
+        $corps_name = $config->get('corps_number') . ' ' . $corps_designator;
+      }
+      else {
+        $corps_name = $config->get('corps_number');
+      }
     }
   }
   else {
@@ -226,7 +250,7 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
       break;
 
     case 'ros_created':
-      $message['body'][] = 'RCSCC Warspite has new routine orders: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'ros';
+      $message['body'][] = $corps_name . ' has new routine orders: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'ros';
       $message['subject'] = 'Routine Orders';
       break;
   }
