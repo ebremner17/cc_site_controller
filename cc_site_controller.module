@@ -1,9 +1,11 @@
 <?php
 
+use Drupal\block\Entity\Block;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\message\Entity\Message;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\user\Entity\User;
 
 /**
  * Implements hook_preprocess_html().
@@ -136,8 +138,26 @@ function _cc_site_controller_user_registration_submit(array &$form, FormStateInt
   // Username of newly created user.
   $params['username'] = $form_state->getValue('name');
 
-  // Send the e-mail to the admin only, do not used send_emails function.
-  $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', 'user_created', 'eric_bremner@bell.net', 'en', $params, NULL, TRUE);
+  $query = \Drupal::entityQuery('user')->condition('status', 1);
+
+  $group = $query->orConditionGroup()
+    ->condition('roles', 'cc_role_site_manager');
+
+  if ($ids = $query->condition($group)->execute()) {
+    $users = User::loadMultiple($ids);
+    foreach ($users as $user) {
+      $site_managers[] = $user->getEmail();
+    }
+  }
+  else {
+    $user = User::load(1);
+    $site_managers[] = $user->getEmail();
+  }
+
+  foreach ($site_managers as $site_manager) {
+    // Send the e-mail to the admin only, do not used send_emails function.
+    $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', 'user_created', $site_manager, 'en', $params, NULL, TRUE);
+  }
 }
 
 /**
@@ -215,22 +235,11 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
   switch ($key) {
 
     case 'user_created':
-      $body = 'A new user has applied at ';
-
-      if ($config->get('corps_number') !== NULL) {
-        if ($config->get('corps_name') !== NULL) {
-          $body .= $config->get('corps_number') . ' ' . $config->get('corps_name');
-        }
-        else {
-          $body .= $config->get('corps_number');
-        }
-      }
-      else {
-        $body .= ' your unit';
-      }
+      $body = 'A new user has applied at ' . $corps_name;
 
       $body .= ': ' . $params['username'];
       $message['body'][] = $body;
+      $message['subject'] = 'New user';
       break;
 
     case 'alert_created':
