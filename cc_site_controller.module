@@ -307,11 +307,8 @@ function _cc_site_controller_get_emails() {
   // Step through each user and set email.
   foreach ($users as $user) {
 
-    // Get the active from user.
-    $active = $user->isActive();
-
     // If the user is active, process it.
-    if ($user->isActive()) {
+    if ($user->isActive() && $user->id() !== 1) {
 
       // Get the method of communication from the user.
       $method = $user->field_cc_user_method->getValue();
