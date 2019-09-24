@@ -5,6 +5,7 @@
  * Install, update and uninstall for Cadets Canada Site Controller.
  */
 
+use Drupal\block\Entity\Block;
 use Drupal\user\Entity\Role;
 
 /**
@@ -31,4 +32,14 @@ function cc_site_controller_install() {
   $role_object->grantPermission('View media');
   $role_object->grantPermission('Use the Basic HTML text format');
   $role_object->save();
+
+  if ($block = Block::load('seven_block_cc_alerts_today')) {
+    $block->delete();
+  }
+  if ($block = Block::load('seven_cadets_canada_mega_menu')) {
+    $block->delete();
+  }
+  if ($block = Block::load('seven_cadets_canada_footer_pbd')) {
+    $block->delete();
+  }
 }
