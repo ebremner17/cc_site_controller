@@ -21,6 +21,8 @@ permissions:
   - 'access user profiles'
   - 'administer menu'
   - 'cacheflush clear cache'
+  - 'configure editable cc_news node layout overrides'
+  - 'configure editable web_page node layout overrides'
   - 'create alerts content'
   - 'create cc_announcements content'
   - 'create cc_media_mt_image media'
