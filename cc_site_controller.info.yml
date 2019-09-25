@@ -20,6 +20,7 @@ dependencies:
   - twig_field_value
   - user
   - user_registrationpassword
+  - video_embed_wysiwyg
   - we_megamenu
 themes:
   - cadets_canada_theme
