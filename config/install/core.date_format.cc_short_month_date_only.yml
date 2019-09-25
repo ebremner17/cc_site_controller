@@ -4,4 +4,4 @@ dependencies: {  }
 id: cc_short_month_date_only
 label: 'Short month date only'
 locked: false
-pattern: 'M d, Y'
+pattern: 'M j, Y'
