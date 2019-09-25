@@ -11,6 +11,7 @@ permissions:
   - 'access cc_media_ebr_hero_image entity browser pages'
   - 'access cc_media_ebr_image entity browser pages'
   - 'access content overview'
+  - 'access contextual links'
   - 'access ec_ebr_text entity browser pages'
   - 'access et_embeddable_content entity listing'
   - 'access files overview'
