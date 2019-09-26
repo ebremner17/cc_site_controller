@@ -9,38 +9,8 @@ field_name: field_cc_user_carrier
 entity_type: user
 type: list_string
 settings:
-  allowed_values:
-    -
-      value: txt.bell.ca
-      label: Bell
-    -
-      value: text.mtsmobility.com
-      label: 'Bell MTS'
-    -
-      value: pcs.rogers.com
-      label: TBayTel
-    -
-      value: txt.eastlink.ca
-      label: Eastlink
-    -
-      value: mms.fido.ca
-      label: Fido
-    -
-      value: txt.freedommobile.ca
-      label: Freedom
-    -
-      value: msg.telus.com
-      label: Telus
-    -
-      value: mobiletxt.ca
-      label: 'PC Mobile'
-    -
-      value: sms.sasktel.com
-      label: Sasktel
-    -
-      value: vmobile.ca
-      label: 'Virgin Mobile'
-  allowed_values_function: ''
+  allowed_values: { }
+  allowed_values_function: '_cc_site_controller_user_carrier_allowed_values_function'
 module: options
 locked: false
 cardinality: 1
