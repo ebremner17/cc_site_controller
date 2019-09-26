@@ -327,8 +327,11 @@ function _cc_site_controller_get_emails() {
         } // If the method is not email, get the text info.
         else {
 
+          // Get the email to txt address.
+          $email_to_txt =  _cc_site_controller_get_carrier($user->field_cc_user_carrier->getValue()[0]['value']);
+
           // Set the text info which is the cell phone number @ carrier.
-          $emails[] = $user->field_cc_user_cell->getValue()[0]['value'] . '@' . $user->field_cc_user_carrier->getValue()[0]['value'];
+          $emails[] = $user->field_cc_user_cell->getValue()[0]['value'] . '@' . $email_to_txt;
         }
       }
     }
@@ -360,20 +363,51 @@ function cc_site_controller_page_attachments(array &$attachments) {
  * @return array
  */
 function _cc_site_controller_user_carrier_allowed_values(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+
+  // Options for cell phone carrier.
   $options = [
-    'txt.bell.ca' => 'Bell',
-    'text.mtsmobility.com' => 'Bell MTS',
-    'pcs.rogers.com' => 'TBayTel',
-    'txt.eastlink.ca' => 'Eastlink',
-    'mms.fido.ca' => 'Fido',
-    'txt.freedommobile.ca' => 'Freedom',
-    'pcs.rogers.com' => 'Rogers',
-    'msg.telus.com' => 'Telus',
-    'mobiletxt.ca' => 'PC Mobile',
-    'sms.sasktel.com' => 'Sasktel',
-    'vmobile.ca' => 'Virgin Mobile',
+    'Bell' => 'Bell',
+    'Bell MTS' => 'Bell MTS',
+    'TBayTel' => 'TBayTel',
+    'Eastlink' => 'Eastlink',
+    'Fido' => 'Fido',
+    'Freedom' => 'Freedom',
+    'Rogers' => 'Rogers',
+    'Telus' => 'Telus',
+    'PC Mobile' => 'PC Mobile',
+    'Sasktel' => 'Sasktel',
+    'Virgin Mobile' => 'Virgin Mobile',
   ];
+
   return $options;
+}
+
+/**
+ * Helper function.
+ *
+ * Get the cell phone carrier email to text.
+ *
+ * @param string $carrier
+ * @return mixed
+ */
+function _cc_site_controller_get_carrier(string $carrier) {
+
+  // List of carriers.
+  $carriers = [
+    'Bell' => 'txt.bell.ca',
+    'Bell MTS' => 'text.mtsmobility.com',
+    'TBayTel' => 'pcs.rogers.com',
+    'Eastlink' => 'txt.eastlink.ca',
+    'Fido' => 'mms.fido.ca',
+    'Freedom' => 'txt.freedommobile.ca',
+    'Rogers' => 'pcs.rogers.com',
+    'Telus' => 'msg.telus.com',
+    'PC Mobile' => 'mobiletxt.ca',
+    'Sasktel' => 'sms.sasktel.com',
+    'Virgin Mobile' => 'vmobile.ca',
+  ];
+
+  return $carriers[$carrier];
 }
 
 /**
