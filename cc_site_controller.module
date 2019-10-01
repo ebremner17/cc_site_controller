@@ -265,6 +265,11 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
       $message['body'][] = $corps_name . ' has new routine orders: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'ros';
       $message['subject'] = 'Routine Orders';
       break;
+
+    case 'training_created':
+      $message['body'][] = $corps_name . ' has new training: ' . \Drupal\Core\Url::fromRoute('<front>', array(), array("absolute" => TRUE))->toString() . 'training';
+      $message['subject'] = 'Training';
+      break;
   }
 }
 
@@ -279,7 +284,7 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
 function _cc_site_controller_send_emails($key, $params = NULL) {
 
   // Get the emails from the users.
-  $emails = _cc_site_controller_get_emails();
+  $emails = _cc_site_controller_get_emails($params);
 
   // If there are emails, process them.
   if (isset($emails) and count($emails) > 0) {
@@ -299,10 +304,25 @@ function _cc_site_controller_send_emails($key, $params = NULL) {
  *
  * @return array
  */
-function _cc_site_controller_get_emails() {
+function _cc_site_controller_get_emails($params = NULL) {
 
-  // Load in all the users.
-  $users = user_load_multiple();
+  if (isset($params) && $params !== NULL) {
+    switch ($params['type']) {
+      case 'training':
+        $ids = \Drupal::entityQuery('user')
+          ->condition('status', 1)
+          ->condition('roles', array('cc_role_senior_cadet', 'cc_role_officer'), 'IN')
+          ->execute();
+        $users = User::loadMultiple($ids);
+        break;
+    }
+  }
+  else {
+    $ids = \Drupal::entityQuery('user')
+      ->condition('status', 1)
+      ->execute();
+    $users = User::loadMultiple($ids);
+  }
 
   // Variable to keep track of emails.
   $emails = [];

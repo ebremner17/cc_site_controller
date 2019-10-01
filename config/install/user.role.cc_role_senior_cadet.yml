@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: cc_role_senior_cadet
+label: 'Senior cadet'
+weight: 8
+is_admin: null
+permissions: {  }
