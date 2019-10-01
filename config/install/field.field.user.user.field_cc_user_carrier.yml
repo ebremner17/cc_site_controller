@@ -11,7 +11,7 @@ field_name: field_cc_user_carrier
 entity_type: user
 bundle: user
 label: 'Cell phone carrier'
-description: 'Please choose your cell phone carrier.'
+description: ''
 required: false
 translatable: false
 default_value: {  }

@@ -5,6 +5,7 @@ dependencies:
   - cacheflush
   - ckeditor
   - editor
+  - features
   - field
   - filter
   - image

@@ -10,7 +10,6 @@ dependencies:
     - field.field.user.user.field_cc_user_method
     - field.field.user.user.field_cc_user_type
   module:
-    - path
     - user
 id: user.user.default
 targetEntityType: user
@@ -31,11 +30,11 @@ content:
     type: string_textfield
     region: content
   field_cc_user_carrier:
-    type: options_select
     weight: 5
-    region: content
     settings: {  }
     third_party_settings: {  }
+    type: options_select
+    region: content
   field_cc_user_cell:
     type: string_textfield
     weight: 4
@@ -72,13 +71,8 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   contact: true
   language: true
+  path: true
   timezone: true
