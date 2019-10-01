@@ -32,3 +32,17 @@ function cc_site_controller_install() {
   $role_object->grantPermission('Use the Basic HTML text format');
   $role_object->save();
 }
+
+/**
+ * Add senior cadet role.
+ */
+function cc_site_controller_update_8100() {
+
+  // Config files that have changed.
+  $imports = array(
+    'user.role.cc_role_senior_cadet',
+  );
+
+  // Update the config.
+  _cc_site_controller_update_config('cc_site_controller', $imports);
+}
