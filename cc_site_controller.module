@@ -419,7 +419,7 @@ function _cc_site_controller_get_carrier(string $carrier) {
     'Bell MTS' => 'text.mtsmobility.com',
     'TBayTel' => 'pcs.rogers.com',
     'Eastlink' => 'txt.eastlink.ca',
-    'Fido' => 'mms.fido.ca',
+    'Fido' => 'fido.ca',
     'Freedom' => 'txt.freedommobile.ca',
     'Koodo' => 'msg.telus.com',
     'Rogers' => 'pcs.rogers.com',
