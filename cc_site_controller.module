@@ -307,21 +307,22 @@ function _cc_site_controller_send_emails($key, $params = NULL) {
 function _cc_site_controller_get_emails($params = NULL) {
 
   if (isset($params) && $params !== NULL) {
-    switch ($params['type']) {
-      case 'training':
-        $ids = \Drupal::entityQuery('user')
-          ->condition('status', 1)
-          ->condition('roles', array('cc_role_senior_cadet', 'cc_role_officer'), 'IN')
-          ->execute();
-        $users = User::loadMultiple($ids);
-        break;
+    if (isset($params['type'])) {
+      switch ($params['type']) {
+        case 'training':
+          $users = _cc_site_controller_get_users(array('cc_role_senior_cadet', 'cc_role_officer'));
+          break;
+        default:
+          $users = _cc_site_controller_get_users();
+          break;
+      }
+    }
+    else {
+      $users = _cc_site_controller_get_users();
     }
   }
   else {
-    $ids = \Drupal::entityQuery('user')
-      ->condition('status', 1)
-      ->execute();
-    $users = User::loadMultiple($ids);
+    $users = _cc_site_controller_get_users();
   }
 
   // Variable to keep track of emails.
@@ -358,6 +359,32 @@ function _cc_site_controller_get_emails($params = NULL) {
   }
 
   return $emails;
+}
+
+/**
+ * Helper function.
+ *
+ * Get users from the system, with or without roles.
+ *
+ * @param null array $roles
+ */
+function _cc_site_controller_get_users($roles = NULL) {
+
+  if ($roles !== NULL) {
+    $ids = \Drupal::entityQuery('user')
+      ->condition('status', 1)
+      ->condition('roles', $roles, 'IN')
+      ->execute();
+  }
+  else {
+    $ids = \Drupal::entityQuery('user')
+      ->condition('status', 1)
+      ->execute();
+  }
+
+  $users = User::loadMultiple($ids);
+
+  return $users;
 }
 
 /**
