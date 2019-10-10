@@ -235,6 +235,10 @@ function cc_site_controller_mail($key, &$message, $params = NULL) {
     $corps_name = 'Your Cadet unit';
   }
 
+  if (isset($params['header']['bcc'])) {
+    $message['headers']['bcc'] = $params['header']['bcc'];
+  }
+
   switch ($key) {
 
     case 'user_created':
@@ -288,12 +292,34 @@ function _cc_site_controller_send_emails($key, $params = NULL) {
 
   // If there are emails, process them.
   if (isset($emails) and count($emails) > 0) {
+    $bcc = '';
+    $count = 0;
 
     foreach ($emails as $email) {
-
-      // Send the e-mail to the asker. Drupal calls hook_mail() via this.
-      $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', $key, $email, 'en', $params, NULL, TRUE);
+      if ($count == 0) {
+        $bcc = $email;
+      }
+      else {
+        $bcc = $bcc . ',' . $email;
+      }
+      $count++;
     }
+    $params['header']['bcc'] = $bcc;
+
+    $config = \Drupal::config('cc_site_controller.sitesettings');
+
+    if ($config->get('notification_email_address') !== NULL) {
+      $notify_email = $config->get('notification_email_address');
+    }
+    else {
+      // Load in user 1 and send from that email;
+      $user = \Drupal\user\Entity\User::load(1);
+
+      $notify_email = $user->getEmail();
+    }
+
+    // Send the e-mail to the asker. Drupal calls hook_mail() via this.
+    $mail_sent = \Drupal::service('plugin.manager.mail')->mail('cc_site_controller', $key, $notify_email, 'en', $params, NULL, TRUE);
   }
 }
 
