@@ -61,6 +61,8 @@ function cc_site_controller_update_8101() {
   // Config files that have changed.
   $imports = array(
     'layout_builder_styles.settings',
+    'layout_builder_styles.style.cc_lbs_contained_image',
+    'layout_builder_styles.style.cc_lbs_full_width_image',
   );
 
   // Update the config.
