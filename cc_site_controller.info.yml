@@ -10,6 +10,7 @@ dependencies:
   - filter
   - image
   - layout_builder_modal
+  - layout_builder_styles
   - mailsystem
   - node
   - options
