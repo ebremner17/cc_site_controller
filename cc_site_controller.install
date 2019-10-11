@@ -46,3 +46,23 @@ function cc_site_controller_update_8100() {
   // Update the config.
   _cc_site_controller_update_config('cc_site_controller', $imports);
 }
+
+/**
+ * Install layout builder styles and add styles to layout builder.
+ */
+function cc_site_controller_update_8101() {
+
+  // Modules to enable.
+  $modules = array('layout_builder_style');
+
+  // Enable the modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  // Config files that have changed.
+  $imports = array(
+    'layout_builder_styles.settings',
+  );
+
+  // Update the config.
+  _cc_site_controller_update_config('cc_site_controller', $imports);
+}
