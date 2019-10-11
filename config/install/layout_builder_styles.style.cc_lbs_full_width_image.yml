@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: cc_lbs_full_width_image
+label: 'Full width image'
+classes: full-width-image
+type: component
+block_restrictions:
+  - 'entity_browser_block:cc_media_ebr_image'
