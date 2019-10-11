@@ -53,7 +53,7 @@ function cc_site_controller_update_8100() {
 function cc_site_controller_update_8101() {
 
   // Modules to enable.
-  $modules = array('layout_builder_style');
+  $modules = array('layout_builder_styles');
 
   // Enable the modules.
   \Drupal::service('module_installer')->install($modules, TRUE);
