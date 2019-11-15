@@ -68,3 +68,28 @@ function cc_site_controller_update_8101() {
   // Update the config.
   _cc_site_controller_update_config('cc_site_controller', $imports);
 }
+
+/**
+ * Install layout builder styles and add styles to layout builder.
+ */
+function cc_site_controller_update_8102() {
+
+  // Modules to enable.
+  $modules = array('forum', 'cc_forum');
+
+  // Enable the modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
+
+  // Config files that have changed.
+  $imports = array(
+    'user.role.cc_role_cadet',
+    'user.role.cc_role_cadet_correspondant',
+    'user.role.cc_role_league_member',
+    'user.role.cc_role_officer',
+    'user.role.cc_role_parent',
+    'user.role.cc_role_site_manager',
+  );
+
+  // Update the config.
+  _cc_site_controller_update_config('cc_site_controller', $imports);
+}
