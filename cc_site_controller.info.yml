@@ -22,6 +22,7 @@ dependencies:
   - twig_field_value
   - user
   - user_registrationpassword
+  - video_embed_field
   - video_embed_wysiwyg
   - we_megamenu
 themes:
