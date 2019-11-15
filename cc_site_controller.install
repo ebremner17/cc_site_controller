@@ -75,7 +75,7 @@ function cc_site_controller_update_8101() {
 function cc_site_controller_update_8102() {
 
   // Modules to enable.
-  $modules = array('forum', 'cc_forum');
+  $modules = array('video_embed_media', 'video_embed_field', 'video_embed_wyswyig', 'forum', 'cc_forum');
 
   // Enable the modules.
   \Drupal::service('module_installer')->install($modules, TRUE);
